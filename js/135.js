@@ -98,8 +98,11 @@
     var nCitysLength = citys.length;
     var max = 0;
     citys.forEach(function (item,i,array) {
-        if(item.gdp > max){
-            max = item.gdp;
+        let city =  window.gdpcitys.filter(function (iitem) {
+            return iitem.name.includes(item);
+        });
+        if(city[0].gdp > max){
+            max = city[0].gdp;
         }
     })
     /**
@@ -122,7 +125,7 @@
                     $('#legendP').css('display','none');
                     $('#legendC').css('display','none');
                     leGendif = false;
-                    console.log(window.gdpcitys);
+                    // console.log(window.gdpcitys);
                     let data = [];
                     while(nCitysLength--){
                         let cityCenter = mapv.utilCityCenter.getCenterByCityName(citys[nCitysLength]);
@@ -131,9 +134,9 @@
                                 type: "Point",
                                 coordinates: [cityCenter.lng, cityCenter.lat]
                             },
-                            count: window.gdpcitys.filter(function (item) {
-                                return item.name.startsWith(citys[nCitysLength])
-                            })/max * 30
+                            count: (window.gdpcitys.filter(function (item) {
+                                return item.name.includes(citys[nCitysLength])
+                            })[0].gdp/max) * 30
                         })
                     }
                     let dataSet = new mapv.DataSet(data);
