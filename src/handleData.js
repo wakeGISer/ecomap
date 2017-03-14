@@ -3,35 +3,33 @@
  */
 
 import Area from './ClassBreakArea.js';
+import PieChart from './PieChart.js';
 
 class Handle {
     constructor(elemId, fn) {
-        this.max = 0;
         this.options = null;
         this.dataSet = null;
         var self = this;
         switch (elemId) {
             case 'see_a_gdp':
-                let gdpPie = new PieChart("gdp", {
+                let gdpPie = new PieChart("gdp",{
                     fillStyle: 'rgba(255, 50, 50, 0.6)',
                     maxSize: 50,
-                    max: this.max,
                     draw: 'bubble'
                 });
                 this.setDataSet(gdpPie.dataSet);
                 this.setOptions(gdpPie.options);
-                fn();
+                fn.call(this);
                 break;
-            case 'see_a_100'
+            case 'see_a_100':
                 let ratePie = new PieChart("rate", {
                     fillStyle: 'rgba(255, 250, 50, 0.6)',
-                    maxSize: 10,
-                    max: this.max,
+                    maxSize: 30,
                     draw: 'bubble'
                 });
                 this.setOptions(ratePie.options);
                 this.setDataSet(ratePie.dataSet);
-                fn()
+                fn.call(this)
                 break;
             case 'see_a_GDPP':
                 // this.setDataType("see_a_gdp");
@@ -89,7 +87,7 @@ class Handle {
                 }, function () {
                     self.dataSet = this.dataSet;
                     self.options = this.options;
-                    fn()
+                    fn.call(self);
                 })
                 break;
             case 'see_a_GDP_In':

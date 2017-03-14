@@ -43,8 +43,8 @@
             loadTheme: function (themeId) {
                 var  This  = this;
                 let handle = new Handle(themeId,function () {
-                    let dataSet = handle.getDataSet();
-                    let options = handle.getOptions();
+                    let dataSet = this.getDataSet();
+                    let options = this.getOptions();
                     This.loadLayer(dataSet, options);
                 });
             },
