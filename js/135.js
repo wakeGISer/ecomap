@@ -39,35 +39,6 @@
     var currentLayer = null,currentLegend;
 
     /**
-     * 获取WMTS服务图层
-     * @param {String} value 
-     */
-    function getWmtsLayer(value) {
-        if(value){
-            var url = CONFIG_135.WMTS_URL + "/ows/tile/" + value + "/1";
-            return new L.TileLayer.WMTS(url, {
-                layer: "vec",
-                tilematrixSet: "c",
-                format: "tiles",
-                noWrap: true
-            });
-        }else {
-            var cfg = {
-                "radius": 12,
-                "maxOpacity": 1,
-                "scaleRadius": false,
-                "useLocalExtrema": false,
-                latField: 'y',
-                lngField: 'x',
-                valueField: 'f',
-
-            };
-            var heatmapLayer = new HeatmapOverlay(cfg);
-            return heatmapLayer;
-        }
-    }
-
-    /**
      * 设置当前图层
      * @param {Map} map 地图
      * @param {Layer} layer 图层 
@@ -194,58 +165,8 @@
             // setCurrentLayer(map, layer);
         });
     }
-    //设置图标颜色
-    function changeLegend(obj,isProvince){
-        var legend ;
-//      if(isProvince){
-            legend = obj.province;
-            $('#legendC').css('display','none');
-            $('#legendP').css('display','block');
-            $('#legendP').children('p').get(0).innerText = obj.title1.first;
-            $('#legendP').children('p').get(1).innerText = obj.title1.last;
-            $('#legendP > div > :nth-child(2)').each(function(index){
-                var color = legend[index][0] || 'orange';
-                $(this).prev().css('background',color);
-                if(obj.title1.first == "省GDP年均百分比" || obj.title1.first == "省人均GDP") {
-		    		this.innerHTML = legend[index][1] + '-' + legend[index][2];
-		    	} else {
-		    		this.innerHTML = legend[index][1] + '-' + legend[index][2] + 'X10^3';
-		    	}
-            })
-//      }else {
-//          legend = obj.county;
-//          $('#legendP').css('display','none');
-//          $('#legendC').css('display','block');
-//          $('#legendC').children('p').get(0).innerText = obj.title2.first;
-//          $('#legendC').children('p').get(1).innerText = obj.title2.last;
-//          $('#legendC > div > :nth-child(2)').each(function(index){
-//              var color = legend[index][0] || 'orange';
-//              $(this).prev().css('background',color);
-//              if(obj.title1.first == "省GDP年均百分比" || obj.title1.first == "省人均GDP") {
-//		    		this.innerHTML = legend[index][1] + '-' + legend[index][2];
-//		    	} else {
-//		    		this.innerHTML = legend[index][1] + '-' + legend[index][2] + 'X10^3';
-//		    	}
-//          })
-//      }
-    }
-    //地图缩放切换图标事件
-    // map.on('zoomend',function(){
-    // 	if(leGendif == true){
-    // 		if(map._zoom < 5){
-	 //            changeLegend(currentLegend,true);
-	 //        }else {
-	 //            changeLegend(currentLegend,false);
-	 //        }
-    // 	}
-    // })
-    // 初始化WMTS图层
     CONFIG_135.ELEMENT_WMTS.map(function (ele) {
         // ele.layer = getWmtsLayer(ele.wmts);
         addChangeCurrentLayerEvent(ele.element, map, ele.layer);
-    });
-
-    // 设置当前图层
-    //setCurrentLayer(map, CONFIG_135.ELEMENT_WMTS[1].layer);
-
+    })
 }($, map));

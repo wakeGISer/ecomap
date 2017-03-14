@@ -1,0 +1,200 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.wrap-map , #app, #map{
+    height: 100%;
+    width: 100%;
+    /*background: #333 url("../img/bc.png") left top repeat;*/
+    /*background-color:#666;*/
+}
+
+.content {
+    overflow: auto;
+}
+
+#se_nav {
+    position: fixed;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    /*background: rgba(255, 0, 0, .7) url("../globe/China.png") 0.5em center no-repeat;*/
+    background-color: rgba(0, 0, 0, .7);
+    /*background-size: auto 100%;*/
+    /*text-indent: 3.5em;*/
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    z-index: 1000;
+    border-bottom: 1px solid rgb(169, 169, 169);
+    /*box-shadow: 0px 1px 2px rgba(255, 255, 0, .3);*/
+}
+
+#cityList {
+    z-index: 1001;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    /*border-radius: 10%;*/
+    background-color: rgba(255, 0, 0, 1);
+    border: 0;
+    padding: 0;
+    margin: 0;
+    height: 30px;
+    width: 30px;
+    outline: none;
+}
+
+#se_list {
+    height: 20px;
+    width: 20px;
+}
+
+#fun_button {
+    width: 45px;
+    position: absolute;
+    left: 10px;
+    top: 90px;
+    z-index: 10002;
+}
+
+#fun_button a {
+    display: block;
+    width: 30px;
+    height: 30px;
+    /*border-radius: 50%;*/
+    margin-bottom: 5px;
+    outline: none;
+    border: 1px solid rgba(248, 248, 248, 0.5);
+    /*box-shadow: 1px 1px 1px rgba(255, 255, 0, .3);*/
+}
+
+
+
+#myModal {
+    z-index: 10005;
+}
+
+#myModa2 {
+    z-index: 10006;
+}
+
+#se_flag {
+    position: absolute;
+    z-index: 10004;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 30px;
+    background: url('img/flag4.png') center center no-repeat;
+    background-size: 100% auto;
+}
+
+#logo {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    z-index: 10005;
+}
+
+#logo img {
+    /*height: 40px;
+    max-height: 40px;*/
+}
+
+#se_en {
+    position: absolute;
+    top: 36px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 10px;
+    color: #990;
+    width: 100%;
+    text-align: center;
+    z-index: 10002;
+}
+
+#legendC {
+    width: 90px;
+    /*height:295px;*/
+    z-index: 500;
+    position: absolute;
+    bottom: 30px;
+    background: #f8f8f8;
+    padding: 10px 5px;
+    display: none;
+    right: 10px;
+    font-size: 8px;
+}
+
+#legendP {
+    width: 90px;
+    /*height:145px;*/
+    z-index: 500;
+    position: absolute;
+    bottom: 30px;
+    background: #fff;
+    padding: 10px 5px;
+    display: none;
+    right: 10px;
+    font-size: 8px;
+}
+
+@media only screen and (min-width: 700px) {
+    #legendC {
+        width: 130px;
+    }
+
+    #legendP {
+        width: 130px;
+    }
+}
+
+#legendP > div, #legendC > div {
+    position: relative;
+}
+
+#legendP > div > :nth-child(1), #legendC > div > :nth-child(1) {
+    width: 10px;
+    height: 10px;
+    background: yellow;
+    display: inline-block;
+}
+
+#legendP > div > :nth-child(2), #legendC > div > :nth-child(2) {
+    left: 15px;
+    position: absolute;
+}
+
+p {
+    margin: 0;
+}
+
+#se_title {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    top: 50px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 15px;
+    color: rgb(108, 108, 108);
+    background: rgba(0, 0, 0, .5);
+}
+
+@media only screen and (min-width: 700px) {
+    #se_title {
+        color: #eee;
+    }
+}
