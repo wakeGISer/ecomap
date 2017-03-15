@@ -1,6 +1,6 @@
-var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
-{"name":"天津","gdp":25000,"rate":"8.50"},
-{"name":"河北","gdp":40000,"rate":"7.00",county:[
+var gdpcitys = [{"name":"北京","gdp":28227,"rate":"6.50","area":16800},
+{"name":"天津","gdp":25000,"rate":"8.50","area":11000},
+{"name":"河北","gdp":40000,"rate":"7.00","area":190000,county:[
 {"name":"石家庄","gdp":7500,"rate":"7.50"},
 {"name":"唐山","gdp":8600,"rate":"6.50"},
 {"name":"秦皇岛","gdp":2000,"rate":"8.00"},
@@ -24,7 +24,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"沧州","gdp":5200,"rate":"9.00"},
 {"name":"廊坊","gdp":2600,"rate":"8.50"},
 {"name":"衡水","gdp":1800,"rate":"8.50"},
-{"name":"山西","gdp":18401,"rate":"6.50",county:[
+{"name":"山西","gdp":18401,"rate":"6.50","area":150000,county:[
 {"name":"太原","gdp":4000,"rate":"7.50"},
 {"name":"大同","gdp":1388,"rate":"6.50"},
 {"name":"阳泉","gdp":860,"rate":"7.00"},
@@ -48,7 +48,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"忻州","gdp":870,"rate":"6.50"},
 {"name":"临汾","gdp":1630,"rate":"7.00"},
 {"name":"吕梁","gdp":1690,"rate":"9.20"},
-{"name":"内蒙古","gdp":23344,"rate":"7.50"},
+{"name":"内蒙古","gdp":23344,"rate":"7.50","area":1100000},
 {"name":"呼和浩特","gdp":3040,"rate":"7.50",county:[
 {"name":"包头","gdp":5000,"rate":"8.00"},
 {"name":"乌海","gdp":850,"rate":"8.00"},
@@ -67,7 +67,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"呼伦贝尔","gdp":2184,"rate":"7.50"},
 {"name":"巴彦淖尔","gdp":1307,"rate":"8.00"},
 {"name":"乌兰察布","gdp":1350,"rate":"8.00"},
-{"name":"辽宁","gdp":39500,"rate":"6.60",county:[
+{"name":"辽宁","gdp":39500,"rate":"6.60","area":150000,county:[
 {"name":"沈阳","gdp":11000,"rate":"7.00"},
 {"name":"大连","gdp":10000,"rate":"7.00"},
 {"name":"鞍山","gdp":3260,"rate":"7.00"},
@@ -97,7 +97,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"铁岭","gdp":11000,"rate":"7.00"},
 {"name":"朝阳","gdp":1140,"rate":"7.00"},
 {"name":"葫芦岛","gdp":1000,"rate":"7.00"},
-{"name":"吉林","gdp":17335,"rate":"6.6",county:[
+{"name":"吉林","gdp":17335,"rate":"6.6","area":180000,county:[
 {"name":"长春","gdp":8000,"rate":"7.00"},
 {"name":"吉林","gdp":3450,"rate":"7.00"},
 {"name":"四平","gdp":1578,"rate":"7.18"},
@@ -115,8 +115,8 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"白山","gdp":980,"rate":"6.70"},
 {"name":"松原","gdp":2356,"rate":"7.00"},
 {"name":"白城","gdp":1051,"rate":"8.00"},
-{"name":"上海","gdp":34331,"rate":"6.50"},
-{"name":"江苏","gdp":100000,"rate":"7.50",county:[
+{"name":"上海","gdp":34331,"rate":"6.50","area":5800},
+{"name":"江苏","gdp":100000,"rate":"7.50","area":100000,county:[
 {"name":"南京","gdp":15000,"rate":"7.50"},
 {"name":"无锡","gdp":11516,"rate":"7.50"},
 {"name":"徐州","gdp":4520,"rate":"8.00"},
@@ -144,7 +144,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"镇江","gdp":3840,"rate":"7.50"},
 {"name":"泰州","gdp":3300,"rate":"8.00"},
 {"name":"宿迁","gdp":1350,"rate":"7.00"},
-{"name":"浙江","gdp":55444.00,"rate":"7.00",county:[
+{"name":"浙江","gdp":55444.00,"rate":"7.00","area":100000,county:[
 {"name":"杭州","gdp":11891.64,"rate":"7.50"},
 {"name":"宁波","gdp":10251.60,"rate":"7.50"},
 {"name":"温州","gdp":6479.51,"rate":"7.00"},
@@ -168,7 +168,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"舟山","gdp":1800.00,"rate":"10.00"},
 {"name":"台州","gdp":4830.00,"rate":"7.18"},
 {"name":"丽水","gdp":1600.00,"rate":"7.74"},
-{"name":"安徽","gdp":36000,"rate":"8.50",county:[
+{"name":"安徽","gdp":36000,"rate":"8.50","area":130000,county:[
 {"name":"合肥","gdp":5400,"rate":"8.50"},
 {"name":"芜湖","gdp":2160,"rate":"9.00"},
 {"name":"蚌埠","gdp":1200,"rate":"8.50"},
@@ -204,7 +204,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"亳州","gdp":1010,"rate":"8.50"},
 {"name":"池州","gdp":560,"rate":"8.50"},
 {"name":"宣城","gdp":1030,"rate":"8.50"},
-{"name":"福建","gdp":29474.00,"rate":"8.50",county:[
+{"name":"福建","gdp":29474.00,"rate":"8.50","area":120000,county:[
 {"name":"福州","gdp":5000.00,"rate":"11.30"},
 {"name":"厦门","gdp":5200.00,"rate":"8.50"},
 {"name":"莆田","gdp":3000.00,"rate":"10.50"},
@@ -224,7 +224,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"南平","gdp":2000.00,"rate":"9.00"},
 {"name":"龙岩","gdp":2600.00,"rate":"9.00"},
 {"name":"宁德","gdp":2300.00,"rate":"9.00"},
-{"name":"江西","gdp":18902,"rate":"8.50",county:[
+{"name":"江西","gdp":18902,"rate":"8.50","area":160000,county:[
 {"name":"南昌","gdp":7000,"rate":"9.00"},
 {"name":"景德镇","gdp":1200,"rate":"8.50"},
 {"name":"萍乡","gdp":1300,"rate":"8.00"},
@@ -248,7 +248,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"宜春","gdp":2700,"rate":"8.60"},
 {"name":"抚州","gdp":1800,"rate":"9.50"},
 {"name":"上饶","gdp":2720,"rate":"8.50"},
-{"name":"山东","gdp":90000,"rate":"7.50",county:[
+{"name":"山东","gdp":90000,"rate":"7.50","area":150000,county:[
 {"name":"济南","gdp":8963,"rate":"8.00"},
 {"name":"青岛","gdp":13351,"rate":"7.50"},
 {"name":"淄博","gdp":4100,"rate":"7.50"},
@@ -284,7 +284,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"聊城","gdp":3914,"rate":"8.00"},
 {"name":"滨州","gdp":3381,"rate":"7.50"},
 {"name":"菏泽","gdp":3780,"rate":"9.50"},
-{"name":"河南","gdp":46184,"rate":"8.00",county:[
+{"name":"河南","gdp":46184,"rate":"8.00","area":160000,county:[
 {"name":"郑州","gdp":11255.34,"rate":"9.00"},
 {"name":"开封","gdp":2469.49,"rate":"9.00"},
 {"name":"洛阳","gdp":4760.00,"rate":"9.00"},
@@ -320,7 +320,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"信阳","gdp":2890.00,"rate":"9.00"},
 {"name":"周口","gdp":3500.00,"rate":"11.00"},
 {"name":"驻马店","gdp":2910.00,"rate":"8.50"},
-{"name":"湖北","gdp":31935.22,"rate":"9.00",county:[
+{"name":"湖北","gdp":31935.22,"rate":"9.00","area":180000,county:[
 {"name":"武汉","gdp":19000,"rate":"11.70"},
 {"name":"黄石","gdp":2500,"rate":"13.00"},
 {"name":"十堰","gdp":2000,"rate":"9.00"},
@@ -346,7 +346,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"黄冈","gdp":2400,"rate":"9.00"},
 {"name":"咸宁","gdp":1600,"rate":"9.00"},
 {"name":"随州","gdp":1570,"rate":"7.18"},
-{"name":"湖南","gdp":32076,"rate":"8.5",county:[
+{"name":"湖南","gdp":32076,"rate":"8.5","area":210000,county:[
 {"name":"长沙","gdp":13600,"rate":"9.80"},
 {"name":"株洲","gdp":3800,"rate":"9.00"},
 {"name":"湘潭","gdp":1856,"rate":"9.00"},
@@ -374,7 +374,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"永州","gdp":345,"rate":"10.00"},
 {"name":"怀化","gdp":1395,"rate":"9.00"},
 {"name":"娄底","gdp":1401,"rate":"8.50"},
-{"name":"广东","gdp":110000,"rate":"7.00",county:[
+{"name":"广东","gdp":110000,"rate":"7.00","area":180000,county:[
 {"name":"广州","gdp":28000,"rate":"9.00"},
 {"name":"韶关","gdp":1800,"rate":"10.00"},
 {"name":"深圳","gdp":26000,"rate":"8.00"},
@@ -418,7 +418,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"潮州","gdp":1700,"rate":"11.00"},
 {"name":"揭阳","gdp":2079,"rate":"10.00"},
 {"name":"云浮","gdp":1200,"rate":"11.00"},
-{"name":"广西","gdp":19139,"rate":"7.50",county:[
+{"name":"广西","gdp":19139,"rate":"7.50","area":230000,county:[
 {"name":"南宁","gdp":5000,"rate":"8.00"},
 {"name":"柳州","gdp":2521,"rate":"8.00"},
 {"name":"桂林","gdp":3500,"rate":"8.00"},
@@ -448,14 +448,14 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"河池","gdp":867,"rate":"7.00"},
 {"name":"来宾","gdp":820,"rate":"8.00"},
 {"name":"崇左","gdp":1000,"rate":"8.00"},
-{"name":"海南","gdp":5190,"rate":"7.00",county:[
+{"name":"海南","gdp":5190,"rate":"7.00","area":34000,county:[
 {"name":"海口","gdp":1706,"rate":"8.00"},
 {"name":"三亚","gdp":617,"rate":"7.00"},
 ]},
 {"name":"海口","gdp":1706,"rate":"8.00"},
 {"name":"三亚","gdp":617,"rate":"7.00"},
-{"name":"重庆","gdp":25000,"rate":"9.00"},
-{"name":"四川","gdp":34371,"rate":"7.00",county:[
+{"name":"重庆","gdp":25000,"rate":"9.00","area":82300},
+{"name":"四川","gdp":34371,"rate":"7.00","area":480000,county:[
 {"name":"成都","gdp":16654,"rate":"11.60"},
 {"name":"自贡","gdp":1295,"rate":"7.17"},
 {"name":"攀枝花","gdp":1048,"rate":"7.17"},
@@ -493,7 +493,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"雅安","gdp":1000,"rate":"9.00"},
 {"name":"巴中","gdp":500,"rate":"8.70"},
 {"name":"资阳","gdp":200,"rate":"8.00"},
-{"name":"贵州","gdp":18000,"rate":"10.00",county:[
+{"name":"贵州","gdp":18000,"rate":"10.00","area":170000,county:[
 {"name":"贵阳","gdp":5000,"rate":"11.00"},
 {"name":"六盘水","gdp":2200,"rate":"12.00"},
 {"name":"遵义","gdp":4400,"rate":"13.00"},
@@ -503,7 +503,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"六盘水","gdp":2200,"rate":"12.00"},
 {"name":"遵义","gdp":4400,"rate":"13.00"},
 {"name":"安顺","gdp":1200,"rate":"14.00"},
-{"name":"云南","gdp":21000,"rate":"8.50",county:[
+{"name":"云南","gdp":21000,"rate":"8.50","area":380000,county:[
 {"name":"昆明","gdp":6108,"rate":"9.00"},
 {"name":"曲靖","gdp":2600,"rate":"9.00"},
 {"name":"玉溪","gdp":2000,"rate":"9.00"},
@@ -521,11 +521,11 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"丽江","gdp":467,"rate":"10.00"},
 {"name":"思茅","gdp":1000,"rate":"10.00"},
 {"name":"临沧","gdp":846,"rate":"11.00"},
-{"name":"西藏","gdp":1015,"rate":"10.00",county:[
+{"name":"西藏","gdp":1015,"rate":"10.00","area":1200000 ,county:[
 {"name":"拉萨","gdp":700,"rate":"10.00"},
 ]},
 {"name":"拉萨","gdp":700,"rate":"10.00"},
-{"name":"陕西","gdp":30000,"rate":"10.00",county:[
+{"name":"陕西","gdp":30000,"rate":"10.00","area":190000,county:[
 {"name":"西安","gdp":9000,"rate":"8.00"},
 {"name":"铜川","gdp":560,"rate":"9.00"},
 {"name":"宝鸡","gdp":3577,"rate":"14.87"},
@@ -547,7 +547,7 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"榆林","gdp":4500,"rate":"6.00"},
 {"name":"安康","gdp":1450,"rate":"10.50"},
 {"name":"商洛","gdp":1150,"rate":"10.00"},
-{"name":"甘肃","gdp":8241,"rate":"7.50",county:[
+{"name":"甘肃","gdp":8241,"rate":"7.50","area":390000,county:[
 {"name":"兰州","gdp":400,"rate":"7.00"},
 {"name":"嘉峪关","gdp":368,"rate":"8.00"},
 {"name":"金昌","gdp":321,"rate":"7.00"},
@@ -573,9 +573,9 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"庆阳","gdp":1000,"rate":"10.00"},
 {"name":"定西","gdp":448,"rate":"8.00"},
 {"name":"陇南","gdp":463.00,"rate":"8.00"},
-{"name":"青海","gdp":3340,"rate":"8.00",county:[
+{"name":"青海","gdp":3340,"rate":"8.00","area":720000,county:[
 {"name":"西宁","gdp":2100,"rate":"6.50"},
-{"name":"宁夏","gdp":3379,"rate":"7.50"},
+{"name":"宁夏","gdp":3379,"rate":"7.50","area":66000},
 {"name":"银川","gdp":2175,"rate":"8.00"},
 {"name":"石嘴山","gdp":650,"rate":"7.00"},
 {"name":"吴忠","gdp":593,"rate":"8.00"},
@@ -583,19 +583,19 @@ var gdpcitys=[{"name":"北京","gdp":28227,"rate":"6.50"},
 {"name":"中卫","gdp":500,"rate":"8.00"},
 ]},
 {"name":"西宁","gdp":2100,"rate":"6.50"},
-{"name":"宁夏","gdp":3379,"rate":"7.50"},
+{"name":"宁夏","gdp":3379,"rate":"7.50","area":66000},
 {"name":"银川","gdp":2175,"rate":"8.00"},
 {"name":"石嘴山","gdp":650,"rate":"7.00"},
 {"name":"吴忠","gdp":593,"rate":"8.00"},
 {"name":"固原","gdp":350,"rate":"8.00"},
 {"name":"中卫","gdp":500,"rate":"8.00"},
-{"name":"新疆","gdp":8689,"rate":"9.00",county:[
+{"name":"新疆","gdp":8689,"rate":"9.00","area":1600000,county:[
 {"name":"乌鲁木齐","gdp":3800,"rate":"7.50"},
 {"name":"克拉玛依","gdp":1200,"rate":"7.00"},
 ]},
 {"name":"乌鲁木齐","gdp":3800,"rate":"7.50"},
 {"name":"克拉玛依","gdp":1200,"rate":"7.00"},
-{"name":"黑龙江","gdp":20737,"rate":"6.00",county:[
+{"name":"黑龙江","gdp":20737,"rate":"6.00","area":460000,county:[
 {"name":"哈尔滨","gdp":7334,"rate":"6.00"},
 {"name":"齐齐哈尔","gdp":581,"rate":"6.50"},
 {"name":"鸡西","gdp":720,"rate":"7.00"},
