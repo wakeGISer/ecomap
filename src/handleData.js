@@ -7,35 +7,45 @@ import PieChart from './PieChart.js';
 import HeatMap from './HeatMap.js';
 
 class Handle {
-    constructor(elemId, fn) {
+    constructor(elemId, fn, map) {
         this.options = null;
         this.dataSet = null;
+        this.map = map;
         var self = this;
         switch (elemId) {
             case 'see_a_gdp':
-                let gdpPie = new PieChart("gdp", {
+                let gdpPie = new PieChart("gdp", [{
                     fillStyle: 'rgba(255, 50, 50, 0.6)',
                     maxSize: 50,
                     draw: 'bubble'
-                });
-                this.setDataSet(gdpPie.dataSet);
-                this.setOptions(gdpPie.options);
+                }, {
+                    draw: 'text',
+                    font: '11px Arial',
+                    fillStyle: 'yellow',
+                    shadowColor: 'yellow',
+                    shadowBlur: 10
+                }], this.map);
+                this.layers = gdpPie.getLayers();
                 fn.call(this);
                 break;
             case 'see_a_100':
-                let ratePie = new PieChart("rate", {
+                let ratePie = new PieChart("rate", [{
                     fillStyle: 'rgba(255, 250, 50, 0.6)',
                     maxSize: 30,
                     draw: 'bubble'
-                });
-                this.setOptions(ratePie.options);
-                this.setDataSet(ratePie.dataSet);
-                fn.call(this)
+                }, {
+                    draw: 'text',
+                    font: '11px Arial',
+                    fillStyle: 'yellow',
+                    shadowColor: 'yellow',
+                    shadowBlur: 10
+                }], this.map)
+                this.layers = ratePie.getLayers();
+                fn.call(this);
                 break;
             case 'see_a_GDPP':  //GDP地区生产总值
                 // this.setDataType("see_a_gdp");
                 let areaChina = new Area({
-
                     splitList: [
                         {
                             start: 0,
@@ -72,7 +82,7 @@ class Handle {
                         },
                         mousemove: function (item) {
                             item = item || {};
-                            var data = self.dataSet.get();
+                            var data = areaChina.dataSet.get();
                             for (var i = 0; i < data.length; i++) {
                                 if (item.id == data[i].id) {
                                     data[i].fillStyle = 'yellow';
@@ -80,16 +90,13 @@ class Handle {
                                     data[i].fillStyle = null;
                                 }
                             }
-                            self.dataSet.set(data);
+                            areaChina.dataSet.set(data);
                         }
                     },
                     globalAlpha: 0.9,
                     draw: 'choropleth'
-                }, function () {
-                    self.dataSet = this.dataSet;
-                    self.options = this.options;
-                    fn.call(self);
-                }, "gdp")
+                },fn.bind(this), "gdp", this.map)
+                this.layers = areaChina.getLayers();
                 break;
             case 'see_a_GDP_In': //GDP 增长率
                 let areaPercentChina = new Area({
@@ -125,7 +132,7 @@ class Handle {
                         },
                         mousemove: function (item) {
                             item = item || {};
-                            var data = self.dataSet.get();
+                            var data = areaPercentChina.dataSet.get();
                             for (var i = 0; i < data.length; i++) {
                                 if (item.id == data[i].id) {
                                     data[i].fillStyle = 'yellow';
@@ -133,17 +140,13 @@ class Handle {
                                     data[i].fillStyle = null;
                                 }
                             }
-                            self.dataSet.set(data);
+                            areaPercentChina.dataSet.set(data);
                         }
                     },
                     globalAlpha: 0.9,
                     draw: 'choropleth'
-                }, function () {
-                    self.dataSet = this.dataSet;
-                    self.options = this.options;
-                    fn.call(self);
-                },"percent")
-                break;
+                },fn.bind(this), "percent", this.map)
+                this.layers = areaPercentChina.getLayers();
                 break;
             case 'see_a_GDP_PArea': //平均面积GDP
                 // this.setDataType("see_a_gdp");
@@ -172,7 +175,7 @@ class Handle {
                         },
                         mousemove: function (item) {
                             item = item || {};
-                            var data = self.dataSet.get();
+                            var data = areaAverage.dataSet.get();
                             for (var i = 0; i < data.length; i++) {
                                 if (item.id == data[i].id) {
                                     data[i].fillStyle = 'yellow';
@@ -180,16 +183,13 @@ class Handle {
                                     data[i].fillStyle = null;
                                 }
                             }
-                            self.dataSet.set(data);
+                            areaAverage.dataSet.set(data);
                         }
                     },
                     globalAlpha: 0.9,
                     draw: 'choropleth'
-                }, function () {
-                    self.dataSet = this.dataSet;
-                    self.options = this.options;
-                    fn.call(self);
-                }, "area")
+                }, fn.bind(this), "area", this.map)
+                this.layers = areaAverageChina.getLayers();
                 break;
             case 'see_a_GDP_PPop': //人均GDP
                 let areaPPOPChina = new Area({
@@ -199,18 +199,18 @@ class Handle {
                             end: 3.22,
                             value: '#f1eef6'
                         }, {
-                            start: 3.22 ,
-                            end: 4.57 ,
+                            start: 3.22,
+                            end: 4.57,
                             value: '#d5bad9'
                         }, {
-                            start: 4.57 ,
-                            end: 6.31 ,
+                            start: 4.57,
+                            end: 6.31,
                             value: '#cc97c7'
                         }, {
                             start: 6.31,
                             end: 10.55,
                             value: '#e469cf'
-                        },{
+                        }, {
                             start: 10.55,
                             value: '#ee3387'
                         }
@@ -221,7 +221,7 @@ class Handle {
                         },
                         mousemove: function (item) {
                             item = item || {};
-                            var data = self.dataSet.get();
+                            var data = areaPPOPChina.dataSet.get();
                             for (var i = 0; i < data.length; i++) {
                                 if (item.id == data[i].id) {
                                     data[i].fillStyle = 'yellow';
@@ -229,38 +229,33 @@ class Handle {
                                     data[i].fillStyle = null;
                                 }
                             }
-                            self.dataSet.set(data);
+                            areaPPOPChina.dataSet.set(data);
                         }
                     },
                     globalAlpha: 0.9,
                     draw: 'choropleth'
-                }, function () {
-                    self.dataSet = this.dataSet;
-                    self.options = this.options;
-                    fn.call(self);
-                }, "pop")
+                }, fn.bind(this), "pop", this.map)
+                this.layers = areaPPOPChina.getLayers();
                 break;
             case 'see_a_gdpHeadt': // 人均GDP 热力图
                 let gdpHeat = new HeatMap({
                     size: 30,
-                    gradient: { 0.25: "rgb(0,0,255)", 0.55: "rgb(0,255,0)", 0.85: "yellow", 1.0: "rgb(255,0,0)"},
+                    gradient: {0.25: "rgb(0,0,255)", 0.55: "rgb(0,255,0)", 0.85: "yellow", 1.0: "rgb(255,0,0)"},
                     max: 100,
                     draw: 'heatmap'
-                },"pgdp")
-                self.dataSet = gdpHeat.getDataSet();
-                self.options = gdpHeat.getOptions();
+                }, "pgdp",this.map);
+                this.layers = gdpHeat.getLayers();
                 fn.call(self);
                 break;
             case 'see_a_gdpRateHeat': // 城市 gdp 增长率 热力图
                 // this.setDataType("see_a_gdp");
                 let gdpCityHeat = new HeatMap({
                     size: 20,
-                    gradient: { 0.25: "rgb(0,0,255)", 0.55: "rgb(0,255,0)", 0.85: "yellow", 1.0: "rgb(255,0,0)"},
+                    gradient: {0.25: "rgb(0,0,255)", 0.55: "rgb(0,255,0)", 0.85: "yellow", 1.0: "rgb(255,0,0)"},
                     max: 100,
                     draw: 'heatmap'
-                },"citygdp");
-                self.dataSet = gdpCityHeat.getDataSet();
-                self.options = gdpCityHeat.getOptions();
+                }, "citygdp",this.map)
+                this.layers = gdpCityHeat.getLayers();
                 fn.call(self);
                 break;
             case 'se_a_globe':
@@ -283,6 +278,10 @@ class Handle {
 
     setDataSet(dataSet) {
         this.dataSet = dataSet;
+    }
+
+    getLayers() {
+        return this.layers;
     }
 }
 

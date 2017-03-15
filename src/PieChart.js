@@ -3,12 +3,16 @@
  */
 
 class PieChart {
-    constructor(type, options) {
-        this.options = {};
-        this.dataSet = {};
+    constructor(type, options, map) {
+        this.options = options;
+        this.dataSets = [];
+        this._map = map;
         this.max = 0;
+        this.layers = [];
         this.setDataType(type);
         this.setOptions(options);
+
+        this.loadLayers();
     }
 
     setDataType(type) {
@@ -24,11 +28,20 @@ class PieChart {
                 self.max = city[type];
             }
         })
+        var text = "",preText = "";
+        if(type == "gdp"){
+            preText = "￥";
+            text = "亿元";
+        }else if(type == "rate"){
+            preText = " 今年保持 ";
+            text = "增长率";
+        }
 
-        let data = [];
+        let dataPoint = [],
+            dataText = [];
         while (nCitysLength--) {
             let cityCenter = mapv.utilCityCenter.getCenterByCityName(citys[nCitysLength]);
-            data.push({
+            dataPoint.push({
                 geometry: {
                     type: "Point",
                     coordinates: [cityCenter.lng, cityCenter.lat]
@@ -37,12 +50,33 @@ class PieChart {
                     return iitem.name == (citys[nCitysLength])
                 })[0][type])
             })
+            dataText.push({
+                geometry: {
+                    type: 'Point',
+                    coordinates: [cityCenter.lng, cityCenter.lat + 0.2]
+                },
+                text: citys[nCitysLength] + preText + parseInt(_.filter(window.gdpcitys, (iitem) => {
+                    return iitem.name == (citys[nCitysLength])
+                })[0][type]) + text
+            });
         }
-        this.dataSet = new mapv.DataSet(data);
+        this.dataSets.push(new mapv.DataSet(dataPoint));
+        this.dataSets.push(new mapv.DataSet(dataText));
     }
 
     setOptions(options) {
         Object.assign(this.options, options, {max: this.max})
+    }
+
+    loadLayers() {
+        var self = this;
+        this.dataSets.forEach((data, i) => {
+            this.layers.push(new mapv.ishowMapLayer(self._map, data, self.options[i]));
+        })
+    }
+
+    getLayers() {
+        return this.layers;
     }
 }
 

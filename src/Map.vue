@@ -41,24 +41,26 @@
         },
         methods: {
             loadTheme: function (themeId) {
-                var  This  = this;
-                let handle = new Handle(themeId,function () {
-                    let dataSet = this.getDataSet();
-                    let options = this.getOptions();
-                    This.loadLayer(dataSet, options);
-                });
-            },
-            setData: function () {
-
-            },
-            loadLayer: function (dataSet, options) {
                 var self = this;
-                _.forEach(this.layers, function (item) {
-                    item.destroy();
-                    self.layers.pop();
-                });
-                let mapvLayer = new mapv.ishowMapLayer(this.map, dataSet, options);
-                self.layers.push(mapvLayer);
+                self.clearLayers();
+                let handle = new Handle(themeId, function () {
+                    var layers = this.getLayers();
+                    self.setLayers(layers);
+                }, this.map)
+            },
+            clearLayers: function () {
+                var self = this
+                var len = self.layers.length;
+                for(let i = 0; i < len; i++){
+                    let layer = self.layers.pop();
+                    layer.destroy()
+                }
+            },
+            setLayers: function (layers) {
+                var self = this;
+                layers.forEach((item) => {
+                    self.layers.push(item);
+                })
             }
         }
     }

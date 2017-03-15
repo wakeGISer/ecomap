@@ -4,11 +4,14 @@
 import _ from "lodash";
 
 class Area {
-    constructor(options, fn, type) {
+    constructor(options, fn, type, map) {
 
-        this.options = options;
+        this.options = options
+        this.options.methods.mousemove &&  this.options.methods.mousemove.bind(this);
         this.callback = fn;
         this.type = type;
+        this._map = map;
+        this.layers = [];
         this.loadCitysData();
         this.getDataSet();
     }
@@ -96,13 +99,21 @@ class Area {
                 }
             });
             self.dataSet = new mapv.DataSet(data);
-            self.callback.call(self);
-
+            self.addLayer();
+            self.callback();
         });
     }
 
     getOptions() {
         return this.options;
+    }
+
+    addLayer() {
+        this.layers.push(new mapv.ishowMapLayer(this._map,this.dataSet,this.options));
+    }
+
+    getLayers() {
+        return this.layers;
     }
 }
 

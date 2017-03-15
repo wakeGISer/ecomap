@@ -4,13 +4,16 @@
 import _ from "lodash";
 
 class HeatMap {
-    constructor(options,type) {
+    constructor(options,type,map) {
         this.options = options;
         this.dataSet = {};
         this.max = 0;
+        this._map = map;
+        this.layers = [];
         this.type  = type;
         this.prepareData();
         // this.mergeOptions();
+        this.addLayer();
     }
 
     prepareData() {
@@ -51,6 +54,14 @@ class HeatMap {
 
     getOptions() {
         return this.options;
+    }
+
+    getLayers() {
+        return this.layers;
+    }
+
+    addLayer() {
+        this.layers.push(new mapv.ishowMapLayer(this._map,this.dataSet,this.options));
     }
 }
 
