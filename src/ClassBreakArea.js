@@ -48,21 +48,33 @@ class Area {
             "新疆": 0,
             "黑龙江": 0
         };
-        if (this.type == "gdp") {
+        if (this.type == "gdp") {  //GDP地区生产总值
             Object.keys(this.provinces).forEach(function (item) {
                 self.provinces[item] = _.filter(window.gdpcitys, function (iitem) {
                     return iitem.name == item;
                 })[0].gdp;
             })
-        } else if (this.type == "area") {
+        } else if (this.type == "area") { //平均面积GDP
             Object.keys(this.provinces).forEach(function (item) {
                 let p = _.filter(window.gdpcitys, function (iitem) {
                     return iitem.name == item;
                 })[0];
                 self.provinces[item] = p.gdp * Math.pow(10, 4) / p.area;
             })
-        } else if (this.type == "pop") {
-
+        } else if (this.type == "pop") { //人均GDP
+            Object.keys(this.provinces).forEach(function (item) {
+                let p = _.filter(window.gdpcitys, function (iitem) {
+                    return iitem.name == item;
+                })[0];
+                self.provinces[item] = p.gdp / p.pop;
+            })
+            console.log(self.provinces);
+        }else if(this.type == "percent"){ //GDP 增长率
+            Object.keys(this.provinces).forEach(function (item) {
+                self.provinces[item] = parseInt(_.filter(window.gdpcitys, function (iitem) {
+                    return iitem.name == item;
+                })[0].rate);
+            })
         }
 
     }

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 77);
+/******/ 	return __webpack_require__(__webpack_require__.s = 78);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -75,27 +75,6 @@ if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(2)(function(){
-  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
-});
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = function(exec){
-  try {
-    return !!exec();
-  } catch(e){
-    return true;
-  }
-};
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110,7 +89,7 @@ exports.default = function (instance, Constructor) {
 };
 
 /***/ }),
-/* 4 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -118,7 +97,7 @@ exports.default = function (instance, Constructor) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(30);
+var _defineProperty = __webpack_require__(31);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -143,171 +122,28 @@ exports.default = function () {
 }();
 
 /***/ }),
-/* 5 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global    = __webpack_require__(6)
-  , core      = __webpack_require__(0)
-  , ctx       = __webpack_require__(42)
-  , hide      = __webpack_require__(46)
-  , PROTOTYPE = 'prototype';
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(4)(function(){
+  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+});
 
-var $export = function(type, name, source){
-  var IS_FORCED = type & $export.F
-    , IS_GLOBAL = type & $export.G
-    , IS_STATIC = type & $export.S
-    , IS_PROTO  = type & $export.P
-    , IS_BIND   = type & $export.B
-    , IS_WRAP   = type & $export.W
-    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
-    , expProto  = exports[PROTOTYPE]
-    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
-    , key, own, out;
-  if(IS_GLOBAL)source = name;
-  for(key in source){
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    if(own && key in exports)continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-    // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global)
-    // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function(C){
-      var F = function(a, b, c){
-        if(this instanceof C){
-          switch(arguments.length){
-            case 0: return new C;
-            case 1: return new C(a);
-            case 2: return new C(a, b);
-          } return new C(a, b, c);
-        } return C.apply(this, arguments);
-      };
-      F[PROTOTYPE] = C[PROTOTYPE];
-      return F;
-    // make static versions for prototype methods
-    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if(IS_PROTO){
-      (exports.virtual || (exports.virtual = {}))[key] = out;
-      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if(type & $export.R && expProto && !expProto[key])hide(expProto, key, out);
-    }
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = function(exec){
+  try {
+    return !!exec();
+  } catch(e){
+    return true;
   }
-};
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library` 
-module.exports = $export;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var global = module.exports = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
-if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = function(it){
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = Object.create(options.computed || null)
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-    options.computed = computed
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 10 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -17396,7 +17232,171 @@ module.exports = g;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(76)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(77)(module)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global    = __webpack_require__(7)
+  , core      = __webpack_require__(0)
+  , ctx       = __webpack_require__(43)
+  , hide      = __webpack_require__(47)
+  , PROTOTYPE = 'prototype';
+
+var $export = function(type, name, source){
+  var IS_FORCED = type & $export.F
+    , IS_GLOBAL = type & $export.G
+    , IS_STATIC = type & $export.S
+    , IS_PROTO  = type & $export.P
+    , IS_BIND   = type & $export.B
+    , IS_WRAP   = type & $export.W
+    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
+    , expProto  = exports[PROTOTYPE]
+    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
+    , key, own, out;
+  if(IS_GLOBAL)source = name;
+  for(key in source){
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if(own && key in exports)continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function(C){
+      var F = function(a, b, c){
+        if(this instanceof C){
+          switch(arguments.length){
+            case 0: return new C;
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if(IS_PROTO){
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if(type & $export.R && expProto && !expProto[key])hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library` 
+module.exports = $export;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = function(it){
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  scopeId,
+  cssModules
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  // inject cssModules
+  if (cssModules) {
+    var computed = Object.create(options.computed || null)
+    Object.keys(cssModules).forEach(function (key) {
+      var module = cssModules[key]
+      computed[key] = function () { return module }
+    })
+    options.computed = computed
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 11 */
@@ -26646,7 +26646,7 @@ return Vue$3;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
 /* 12 */
@@ -26673,6 +26673,12 @@ exports.default = bus;
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(36), __esModule: true };
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -26682,25 +26688,25 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(41);
+var cof = __webpack_require__(42);
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject       = __webpack_require__(39)
-  , IE8_DOM_DEFINE = __webpack_require__(47)
-  , toPrimitive    = __webpack_require__(58)
+var anObject       = __webpack_require__(40)
+  , IE8_DOM_DEFINE = __webpack_require__(48)
+  , toPrimitive    = __webpack_require__(59)
   , dP             = Object.defineProperty;
 
-exports.f = __webpack_require__(1) ? Object.defineProperty : function defineProperty(O, P, Attributes){
+exports.f = __webpack_require__(3) ? Object.defineProperty : function defineProperty(O, P, Attributes){
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -26713,19 +26719,19 @@ exports.f = __webpack_require__(1) ? Object.defineProperty : function defineProp
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys       = __webpack_require__(50)
-  , enumBugKeys = __webpack_require__(44);
+var $keys       = __webpack_require__(51)
+  , enumBugKeys = __webpack_require__(45);
 
 module.exports = Object.keys || function keys(O){
   return $keys(O, enumBugKeys);
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -26736,41 +26742,41 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(14)
-  , defined = __webpack_require__(13);
+var IObject = __webpack_require__(15)
+  , defined = __webpack_require__(14);
 module.exports = function(it){
   return IObject(defined(it));
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(13);
+var defined = __webpack_require__(14);
 module.exports = function(it){
   return Object(defined(it));
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICI1YWI0NjMwYmFiYjBhNWIzODVkNTQwNGEwZTc4ODVkMi5wbmciOw=="
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(8)(
+var Component = __webpack_require__(9)(
   /* script */
-  null,
+  __webpack_require__(79),
   /* template */
-  __webpack_require__(70),
+  __webpack_require__(71),
   /* scopeId */
   null,
   /* cssModules */
@@ -26797,14 +26803,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(8)(
+var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(24),
+  __webpack_require__(25),
   /* template */
-  __webpack_require__(72),
+  __webpack_require__(73),
   /* scopeId */
   null,
   /* cssModules */
@@ -26831,18 +26837,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(73)
+__webpack_require__(74)
 
-var Component = __webpack_require__(8)(
+var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(25),
+  __webpack_require__(26),
   /* template */
-  __webpack_require__(71),
+  __webpack_require__(72),
   /* scopeId */
   "data-v-d705248a",
   /* cssModules */
@@ -26869,14 +26875,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bus_js__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bus_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__bus_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__handleData_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__handleData_js__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__handleData_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__handleData_js__);
 //
 //
@@ -26942,7 +26948,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26961,25 +26967,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function () {
         return {
-            buttons: ["see_a_gdp", "see_a_100", "see_a_GDPP", "see_a_GDP_In", "see_a_GDP_PArea", "see_a_GDP_PPop", "see_a_gdpHeadt", "see_a_gdpRateHeat", "se_a_globe"]
+            buttons: ["see_a_gdp", "see_a_100", "see_a_GDPP", "see_a_GDP_In", "see_a_GDP_PArea", "see_a_GDP_PPop", "see_a_gdpHeadt", "see_a_gdpRateHeat", "se_a_globe"],
+            title: "地区生产总值"
         };
     },
     created: function () {},
     methods: {
         toggleTheme: function (e) {
             let target = e.target;
+            this.toggleTittle(target);
             __WEBPACK_IMPORTED_MODULE_0__bus_js___default.a.$emit('theme.toggle', target.id);
+        },
+        toggleTittle: function (elem) {
+            switch (elem.id) {
+                case "see_a_gdp":
+                    this.title = "地区生产总值";
+                    break;
+                case "see_a_100":
+                    this.title = "地区增长总值平均增长率";
+                    break;
+                case "see_a_GDPP":
+                    this.title = "各省GDP总值分布图";
+                    break;
+                case "see_a_GDP_In":
+                    this.title = "各省GDP增长率";
+                    break;
+                case "see_a_GDP_PArea":
+                    this.title = "各省平均面积GDP";
+                    break;
+                case "see_a_GDP_PPop":
+                    this.title = "各省人均GDP";
+                    break;
+                case "see_a_gdpHeadt":
+                    this.title = "人均GDP热力图";
+                    break;
+                case "see_a_gdpRateHeat":
+                    this.title = "全国主要城市GDP增长率热力图";
+                    break;
+            }
         }
     }
 };
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26989,19 +27026,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _keys = __webpack_require__(31);
+var _keys = __webpack_require__(32);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _classCallCheck2 = __webpack_require__(3);
+var _classCallCheck2 = __webpack_require__(1);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(4);
+var _createClass2 = __webpack_require__(2);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _lodash = __webpack_require__(10);
+var _lodash = __webpack_require__(5);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27057,19 +27094,37 @@ var Area = function () {
                 "黑龙江": 0
             };
             if (this.type == "gdp") {
+                //GDP地区生产总值
                 (0, _keys2.default)(this.provinces).forEach(function (item) {
                     self.provinces[item] = _lodash2.default.filter(window.gdpcitys, function (iitem) {
                         return iitem.name == item;
                     })[0].gdp;
                 });
             } else if (this.type == "area") {
+                //平均面积GDP
                 (0, _keys2.default)(this.provinces).forEach(function (item) {
                     var p = _lodash2.default.filter(window.gdpcitys, function (iitem) {
                         return iitem.name == item;
                     })[0];
                     self.provinces[item] = p.gdp * Math.pow(10, 4) / p.area;
                 });
-            } else if (this.type == "pop") {}
+            } else if (this.type == "pop") {
+                //人均GDP
+                (0, _keys2.default)(this.provinces).forEach(function (item) {
+                    var p = _lodash2.default.filter(window.gdpcitys, function (iitem) {
+                        return iitem.name == item;
+                    })[0];
+                    self.provinces[item] = p.gdp / p.pop;
+                });
+                console.log(self.provinces);
+            } else if (this.type == "percent") {
+                //GDP 增长率
+                (0, _keys2.default)(this.provinces).forEach(function (item) {
+                    self.provinces[item] = parseInt(_lodash2.default.filter(window.gdpcitys, function (iitem) {
+                        return iitem.name == item;
+                    })[0].rate);
+                });
+            }
         }
     }, {
         key: "getDataSet",
@@ -27108,7 +27163,7 @@ var Area = function () {
 exports.default = Area;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27118,15 +27173,110 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(29);
+var _assign = __webpack_require__(13);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _classCallCheck2 = __webpack_require__(3);
+var _classCallCheck2 = __webpack_require__(1);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(4);
+var _createClass2 = __webpack_require__(2);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _lodash = __webpack_require__(5);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var HeatMap = function () {
+    function HeatMap(options, type) {
+        (0, _classCallCheck3.default)(this, HeatMap);
+
+        this.options = options;
+        this.dataSet = {};
+        this.max = 0;
+        this.type = type;
+        this.prepareData();
+        // this.mergeOptions();
+    }
+
+    (0, _createClass3.default)(HeatMap, [{
+        key: "prepareData",
+        value: function prepareData() {
+            var _this = this;
+
+            var data = [];
+            var sourceData = [];
+            if (this.type == "pgdp") {
+                sourceData = window.gdpHeat;
+            } else if (this.type == "citygdp") {
+                sourceData = window.gdpRateHeat;
+            }
+            var len = sourceData.length;
+            _lodash2.default.forEach(sourceData, function (item) {
+                if (item.f > _this.max) {
+                    _this.max = item.f;
+                }
+            });
+            while (len--) {
+                data.push({
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [sourceData[len].x, sourceData[len].y]
+                    },
+                    count: sourceData[len].f / this.max * 100
+                });
+            }
+
+            this.dataSet = new mapv.DataSet(data);
+        }
+    }, {
+        key: "mergeOptions",
+        value: function mergeOptions() {
+            (0, _assign2.default)(this.options, { max: this.max });
+        }
+    }, {
+        key: "getDataSet",
+        value: function getDataSet() {
+            return this.dataSet;
+        }
+    }, {
+        key: "getOptions",
+        value: function getOptions() {
+            return this.options;
+        }
+    }]);
+    return HeatMap;
+}(); /**
+      * Created by 25106 on 2017-03-14.
+      */
+
+
+exports.default = HeatMap;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _assign = __webpack_require__(13);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _classCallCheck2 = __webpack_require__(1);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(2);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
@@ -27190,7 +27340,7 @@ var PieChart = function () {
 exports.default = PieChart;
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27200,27 +27350,27 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _classCallCheck2 = __webpack_require__(3);
+var _classCallCheck2 = __webpack_require__(1);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(4);
+var _createClass2 = __webpack_require__(2);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _ClassBreakArea = __webpack_require__(26);
+var _ClassBreakArea = __webpack_require__(27);
 
 var _ClassBreakArea2 = _interopRequireDefault(_ClassBreakArea);
 
-var _PieChart = __webpack_require__(27);
+var _PieChart = __webpack_require__(29);
 
 var _PieChart2 = _interopRequireDefault(_PieChart);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _HeatMap = __webpack_require__(28);
 
-/**
- * Created by Administrator on 2017/3/14/014.
- */
+var _HeatMap2 = _interopRequireDefault(_HeatMap);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Handle = function () {
     function Handle(elemId, fn) {
@@ -27251,6 +27401,7 @@ var Handle = function () {
                 fn.call(this);
                 break;
             case 'see_a_GDPP':
+                //GDP地区生产总值
                 // this.setDataType("see_a_gdp");
                 var areaChina = new _ClassBreakArea2.default({
 
@@ -27288,7 +27439,7 @@ var Handle = function () {
                         },
                         mousemove: function mousemove(item) {
                             item = item || {};
-                            var data = dataSet.get();
+                            var data = self.dataSet.get();
                             for (var i = 0; i < data.length; i++) {
                                 if (item.id == data[i].id) {
                                     data[i].fillStyle = 'yellow';
@@ -27296,7 +27447,7 @@ var Handle = function () {
                                     data[i].fillStyle = null;
                                 }
                             }
-                            dataSet.set(data);
+                            self.dataSet.set(data);
                         }
                     },
                     globalAlpha: 0.9,
@@ -27308,64 +27459,60 @@ var Handle = function () {
                 }, "gdp");
                 break;
             case 'see_a_GDP_In':
-                /* let areaAverageChina = new Area({
-                     splitList: [
-                         {
-                             start: 0,
-                             end: 8.69 * Math.pow(10, 3),
-                             value: '#f1eef6'
-                         }, {
-                             start: 8.69 * Math.pow(10, 3),
-                             end: 18.69 * Math.pow(10, 3),
-                             value: '#d5bad9'
-                         }, {
-                             start: 18.69 * Math.pow(10, 3),
-                             end: 28.69 * Math.pow(10, 3),
-                             value: '#cc97c7'
-                         }, {
-                             start: 28.69 * Math.pow(10, 3),
-                             end: 38.69 * Math.pow(10, 3),
-                             value: '#e469af'
-                         }, {
-                             start: 38.69 * Math.pow(10, 3),
-                             end: 48.69 * Math.pow(10, 3),
-                             value: '#ee3387'
-                         }, {
-                             start: 48.69 * Math.pow(10, 3),
-                             end: 58.69 * Math.pow(10, 3),
-                             value: '#d61e53'
-                         }, {
-                             start: 58.69 * Math.pow(10, 3),
-                             value: '#960b3d'
-                         }
-                     ],
-                     methods: {
-                         click: function (item) {
-                             console.log(item);
-                         },
-                         mousemove: function (item) {
-                             item = item || {};
-                             var data = dataSet.get();
-                             for (var i = 0; i < data.length; i++) {
-                                 if (item.id == data[i].id) {
-                                     data[i].fillStyle = 'yellow';
-                                 } else {
-                                     data[i].fillStyle = null;
-                                 }
-                             }
-                             dataSet.set(data);
-                         }
-                     },
-                     globalAlpha: 0.9,
-                     draw: 'choropleth'
-                 }, function () {
-                     self.dataSet = this.dataSet;
-                     self.options = this.options;
-                     fn.call(self);
-                 })
-                 break;*/
+                //GDP 增长率
+                var areaPercentChina = new _ClassBreakArea2.default({
+                    splitList: [{
+                        start: 0,
+                        end: 5.5,
+                        value: '#f1eef6'
+                    }, {
+                        start: 5.5,
+                        end: 6.66,
+                        value: '#d5bad9'
+                    }, {
+                        start: 6.66,
+                        end: 7.5,
+                        value: '#cc97c7'
+                    }, {
+                        start: 7.5,
+                        end: 9.0,
+                        value: '#e469af'
+                    }, {
+                        start: 9.0,
+                        end: 10,
+                        value: '#ee3387'
+                    }, {
+                        start: 10.0,
+                        value: '#d61e53'
+                    }],
+                    methods: {
+                        click: function click(item) {
+                            console.log(item);
+                        },
+                        mousemove: function mousemove(item) {
+                            item = item || {};
+                            var data = self.dataSet.get();
+                            for (var i = 0; i < data.length; i++) {
+                                if (item.id == data[i].id) {
+                                    data[i].fillStyle = 'yellow';
+                                } else {
+                                    data[i].fillStyle = null;
+                                }
+                            }
+                            self.dataSet.set(data);
+                        }
+                    },
+                    globalAlpha: 0.9,
+                    draw: 'choropleth'
+                }, function () {
+                    self.dataSet = this.dataSet;
+                    self.options = this.options;
+                    fn.call(self);
+                }, "percent");
+                break;
                 break;
             case 'see_a_GDP_PArea':
+                //平均面积GDP
                 // this.setDataType("see_a_gdp");
                 var areaAverageChina = new _ClassBreakArea2.default({
                     splitList: [{
@@ -27410,13 +27557,77 @@ var Handle = function () {
                 }, "area");
                 break;
             case 'see_a_GDP_PPop':
-                this.setDataType("see_a_gdp");
+                //人均GDP
+                var areaPPOPChina = new _ClassBreakArea2.default({
+                    splitList: [{
+                        start: 0,
+                        end: 3.22,
+                        value: '#f1eef6'
+                    }, {
+                        start: 3.22,
+                        end: 4.57,
+                        value: '#d5bad9'
+                    }, {
+                        start: 4.57,
+                        end: 6.31,
+                        value: '#cc97c7'
+                    }, {
+                        start: 6.31,
+                        end: 10.55,
+                        value: '#e469cf'
+                    }, {
+                        start: 10.55,
+                        value: '#ee3387'
+                    }],
+                    methods: {
+                        click: function click(item) {
+                            console.log(item);
+                        },
+                        mousemove: function mousemove(item) {
+                            item = item || {};
+                            var data = self.dataSet.get();
+                            for (var i = 0; i < data.length; i++) {
+                                if (item.id == data[i].id) {
+                                    data[i].fillStyle = 'yellow';
+                                } else {
+                                    data[i].fillStyle = null;
+                                }
+                            }
+                            self.dataSet.set(data);
+                        }
+                    },
+                    globalAlpha: 0.9,
+                    draw: 'choropleth'
+                }, function () {
+                    self.dataSet = this.dataSet;
+                    self.options = this.options;
+                    fn.call(self);
+                }, "pop");
                 break;
             case 'see_a_gdpHeadt':
-                this.setDataType("see_a_gdp");
+                // 人均GDP 热力图
+                var gdpHeat = new _HeatMap2.default({
+                    size: 20,
+                    gradient: { 0.25: "rgb(0,0,255)", 0.55: "rgb(0,255,0)", 0.85: "yellow", 1.0: "rgb(255,0,0)" },
+                    max: 100,
+                    draw: 'heatmap'
+                }, "pgdp");
+                self.dataSet = gdpHeat.getDataSet();
+                self.options = gdpHeat.getOptions();
+                fn.call(self);
                 break;
             case 'see_a_gdpRateHeat':
-                this.setDataType("see_a_gdp");
+                // 城市 gdp 增长率 热力图
+                // this.setDataType("see_a_gdp");
+                var gdpCityHeat = new _HeatMap2.default({
+                    size: 30,
+                    gradient: { 0.25: "rgb(0,0,255)", 0.55: "rgb(0,255,0)", 0.85: "yellow", 1.0: "rgb(255,0,0)" },
+                    max: 100,
+                    draw: 'heatmap'
+                }, "citygdp");
+                self.dataSet = gdpCityHeat.getDataSet();
+                self.options = gdpCityHeat.getOptions();
+                fn.call(self);
                 break;
             case 'se_a_globe':
                 this.setDataType("see_a_gdp");
@@ -27446,21 +27657,11 @@ var Handle = function () {
         }
     }]);
     return Handle;
-}();
+}(); /**
+      * Created by Administrator on 2017/3/14/014.
+      */
 
 exports.default = Handle;
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(35), __esModule: true };
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(36), __esModule: true };
 
 /***/ }),
 /* 31 */
@@ -27470,6 +27671,12 @@ module.exports = { "default": __webpack_require__(37), __esModule: true };
 
 /***/ }),
 /* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(38), __esModule: true };
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27590,7 +27797,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27604,9 +27811,9 @@ function fromByteArray (uint8) {
 
 
 
-var base64 = __webpack_require__(32)
-var ieee754 = __webpack_require__(65)
-var isArray = __webpack_require__(34)
+var base64 = __webpack_require__(33)
+var ieee754 = __webpack_require__(66)
+var isArray = __webpack_require__(35)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -29384,10 +29591,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -29398,31 +29605,31 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(60);
-module.exports = __webpack_require__(0).Object.assign;
-
-/***/ }),
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(61);
-var $Object = __webpack_require__(0).Object;
-module.exports = function defineProperty(it, key, desc){
-  return $Object.defineProperty(it, key, desc);
-};
+module.exports = __webpack_require__(0).Object.assign;
 
 /***/ }),
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(62);
-module.exports = __webpack_require__(0).Object.keys;
+var $Object = __webpack_require__(0).Object;
+module.exports = function defineProperty(it, key, desc){
+  return $Object.defineProperty(it, key, desc);
+};
 
 /***/ }),
 /* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(63);
+module.exports = __webpack_require__(0).Object.keys;
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = function(it){
@@ -29431,24 +29638,24 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(7);
+var isObject = __webpack_require__(8);
 module.exports = function(it){
   if(!isObject(it))throw TypeError(it + ' is not an object!');
   return it;
 };
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(18)
-  , toLength  = __webpack_require__(57)
-  , toIndex   = __webpack_require__(56);
+var toIObject = __webpack_require__(19)
+  , toLength  = __webpack_require__(58)
+  , toIndex   = __webpack_require__(57);
 module.exports = function(IS_INCLUDES){
   return function($this, el, fromIndex){
     var O      = toIObject($this)
@@ -29467,7 +29674,7 @@ module.exports = function(IS_INCLUDES){
 };
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -29477,11 +29684,11 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(38);
+var aFunction = __webpack_require__(39);
 module.exports = function(fn, that, length){
   aFunction(fn);
   if(that === undefined)return fn;
@@ -29502,11 +29709,11 @@ module.exports = function(fn, that, length){
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(7)
-  , document = __webpack_require__(6).document
+var isObject = __webpack_require__(8)
+  , document = __webpack_require__(7).document
   // in old IE typeof document.createElement is 'object'
   , is = isObject(document) && isObject(document.createElement);
 module.exports = function(it){
@@ -29514,7 +29721,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 // IE 8- don't enum bug keys
@@ -29523,7 +29730,7 @@ module.exports = (
 ).split(',');
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = {}.hasOwnProperty;
@@ -29532,12 +29739,12 @@ module.exports = function(it, key){
 };
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP         = __webpack_require__(15)
-  , createDesc = __webpack_require__(53);
-module.exports = __webpack_require__(1) ? function(object, key, value){
+var dP         = __webpack_require__(16)
+  , createDesc = __webpack_require__(54);
+module.exports = __webpack_require__(3) ? function(object, key, value){
   return dP.f(object, key, createDesc(1, value));
 } : function(object, key, value){
   object[key] = value;
@@ -29545,29 +29752,29 @@ module.exports = __webpack_require__(1) ? function(object, key, value){
 };
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(1) && !__webpack_require__(2)(function(){
-  return Object.defineProperty(__webpack_require__(43)('div'), 'a', {get: function(){ return 7; }}).a != 7;
+module.exports = !__webpack_require__(3) && !__webpack_require__(4)(function(){
+  return Object.defineProperty(__webpack_require__(44)('div'), 'a', {get: function(){ return 7; }}).a != 7;
 });
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys  = __webpack_require__(16)
-  , gOPS     = __webpack_require__(49)
-  , pIE      = __webpack_require__(51)
-  , toObject = __webpack_require__(19)
-  , IObject  = __webpack_require__(14)
+var getKeys  = __webpack_require__(17)
+  , gOPS     = __webpack_require__(50)
+  , pIE      = __webpack_require__(52)
+  , toObject = __webpack_require__(20)
+  , IObject  = __webpack_require__(15)
   , $assign  = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(2)(function(){
+module.exports = !$assign || __webpack_require__(4)(function(){
   var A = {}
     , B = {}
     , S = Symbol()
@@ -29592,19 +29799,19 @@ module.exports = !$assign || __webpack_require__(2)(function(){
 } : $assign;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has          = __webpack_require__(45)
-  , toIObject    = __webpack_require__(18)
-  , arrayIndexOf = __webpack_require__(40)(false)
-  , IE_PROTO     = __webpack_require__(54)('IE_PROTO');
+var has          = __webpack_require__(46)
+  , toIObject    = __webpack_require__(19)
+  , arrayIndexOf = __webpack_require__(41)(false)
+  , IE_PROTO     = __webpack_require__(55)('IE_PROTO');
 
 module.exports = function(object, names){
   var O      = toIObject(object)
@@ -29620,19 +29827,19 @@ module.exports = function(object, names){
 };
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // most Object methods by ES6 should accept primitives
-var $export = __webpack_require__(5)
+var $export = __webpack_require__(6)
   , core    = __webpack_require__(0)
-  , fails   = __webpack_require__(2);
+  , fails   = __webpack_require__(4);
 module.exports = function(KEY, exec){
   var fn  = (core.Object || {})[KEY] || Object[KEY]
     , exp = {};
@@ -29641,7 +29848,7 @@ module.exports = function(KEY, exec){
 };
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = function(bitmap, value){
@@ -29654,20 +29861,20 @@ module.exports = function(bitmap, value){
 };
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(55)('keys')
-  , uid    = __webpack_require__(59);
+var shared = __webpack_require__(56)('keys')
+  , uid    = __webpack_require__(60);
 module.exports = function(key){
   return shared[key] || (shared[key] = uid(key));
 };
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(6)
+var global = __webpack_require__(7)
   , SHARED = '__core-js_shared__'
   , store  = global[SHARED] || (global[SHARED] = {});
 module.exports = function(key){
@@ -29675,10 +29882,10 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(17)
+var toInteger = __webpack_require__(18)
   , max       = Math.max
   , min       = Math.min;
 module.exports = function(index, length){
@@ -29687,22 +29894,22 @@ module.exports = function(index, length){
 };
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(17)
+var toInteger = __webpack_require__(18)
   , min       = Math.min;
 module.exports = function(it){
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 };
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(7);
+var isObject = __webpack_require__(8);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function(it, S){
@@ -29715,7 +29922,7 @@ module.exports = function(it, S){
 };
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 var id = 0
@@ -29725,52 +29932,52 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__(5);
-
-$export($export.S + $export.F, 'Object', {assign: __webpack_require__(48)});
-
-/***/ }),
 /* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $export = __webpack_require__(5);
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(1), 'Object', {defineProperty: __webpack_require__(15).f});
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__(6);
+
+$export($export.S + $export.F, 'Object', {assign: __webpack_require__(49)});
 
 /***/ }),
 /* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__(19)
-  , $keys    = __webpack_require__(16);
+var $export = __webpack_require__(6);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(3), 'Object', {defineProperty: __webpack_require__(16).f});
 
-__webpack_require__(52)('keys', function(){
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 Object.keys(O)
+var toObject = __webpack_require__(20)
+  , $keys    = __webpack_require__(17);
+
+__webpack_require__(53)('keys', function(){
   return function keys(it){
     return $keys(toObject(it));
   };
 });
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(64)(true);
+exports = module.exports = __webpack_require__(65)(true);
 // imports
 
 
 // module
-exports.push([module.i, "\n#se_a_gdp[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(68) + ") center center no-repeat;\n    background-size: 60% auto;\n}\n#se_a_globe[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(69) + ") center center no-repeat;\n    background-size: 60% auto;\n}\n#se_a_100[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(66) + ") center center no-repeat;\n    background-size: 50% auto;\n}\n#se_a_GDP_PPop[data-v-d705248a], #se_a_GDPP[data-v-d705248a], #se_a_GDP_PArea[data-v-d705248a], #se_a_GDP_In[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(67) + ") center center no-repeat;\n    background-size: 70% auto;\n}\n#se_a_gdpHeat[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(20) + ") center center no-repeat;\n    background-size: 70% auto;\n}\n#se_a_gdpRateHeat[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(20) + ") center center no-repeat;\n    background-size: 70% auto;\n}\n", "", {"version":3,"sources":["F:/WorkSpace/leador/EcoMap/src/Sidebar.vue?2d3c9f04"],"names":[],"mappings":";AAiCA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA","file":"Sidebar.vue","sourcesContent":["<template>\r\n    <div class=\"wrap-side\">\r\n        <div id=\"se_title\">\r\n        </div>\r\n        <div id=\"fun_button\">\r\n            <template v-for=\"btn in buttons\">\r\n                <a href=\"javascript:void()\" v-bind:id=\"btn\" @click=\"toggleTheme\"></a>\r\n            </template>\r\n        </div>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import bus from './bus.js';\r\n    export default{\r\n        data: function () {\r\n            return {\r\n                buttons: [\"see_a_gdp\",\"see_a_100\",\"see_a_GDPP\",\"see_a_GDP_In\",\"see_a_GDP_PArea\",\"see_a_GDP_PPop\",\"see_a_gdpHeadt\",\"see_a_gdpRateHeat\",\"se_a_globe\"]\r\n            };\r\n        },\r\n        created: function () {\r\n\r\n        },\r\n        methods: {\r\n            toggleTheme: function (e) {\r\n                let target = e.target;\r\n                bus.$emit('theme.toggle',target.id);\r\n            }\r\n        }\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n    #se_a_gdp {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/gdp.png\") center center no-repeat;\r\n        background-size: 60% auto;\r\n    }\r\n\r\n    #se_a_globe {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/globe.png\") center center no-repeat;\r\n        background-size: 60% auto;\r\n    }\r\n\r\n    #se_a_100 {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/100.png\") center center no-repeat;\r\n        background-size: 50% auto;\r\n    }\r\n\r\n    #se_a_GDP_PPop, #se_a_GDPP, #se_a_GDP_PArea, #se_a_GDP_In {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/area.png\") center center no-repeat;\r\n        background-size: 70% auto;\r\n    }\r\n\r\n    #se_a_gdpHeat {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/heat.png\") center center no-repeat;\r\n        background-size: 70% auto;\r\n    }\r\n\r\n    #se_a_gdpRateHeat {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/heat.png\") center center no-repeat;\r\n        background-size: 70% auto;\r\n    }\r\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n#se_a_gdp[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(69) + ") center center no-repeat;\n    background-size: 60% auto;\n}\n#se_a_globe[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(70) + ") center center no-repeat;\n    background-size: 60% auto;\n}\n#se_a_100[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(67) + ") center center no-repeat;\n    background-size: 50% auto;\n}\n#se_a_GDP_PPop[data-v-d705248a], #se_a_GDPP[data-v-d705248a], #se_a_GDP_PArea[data-v-d705248a], #se_a_GDP_In[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(68) + ") center center no-repeat;\n    background-size: 70% auto;\n}\n#se_a_gdpHeat[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(21) + ") center center no-repeat;\n    background-size: 70% auto;\n}\n#se_a_gdpRateHeat[data-v-d705248a] {\n    background: rgba(0, 0, 0, .7) url(" + __webpack_require__(21) + ") center center no-repeat;\n    background-size: 70% auto;\n}\n", "", {"version":3,"sources":["F:/WorkSpace/leador/EcoMap/src/Sidebar.vue?67afe351"],"names":[],"mappings":";AAgEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA;AAEA;IACA,oFAAA;IACA,0BAAA;CACA","file":"Sidebar.vue","sourcesContent":["<template>\r\n    <div class=\"wrap-side\">\r\n        <div id=\"se_title\">\r\n            {{title}}\r\n        </div>\r\n        <div id=\"fun_button\">\r\n            <template v-for=\"btn in buttons\">\r\n                <a href=\"javascript:void()\" v-bind:id=\"btn\" @click=\"toggleTheme\"></a>\r\n            </template>\r\n        </div>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import bus from './bus.js';\r\n    export default{\r\n        data: function () {\r\n            return {\r\n                buttons: [\"see_a_gdp\",\"see_a_100\",\"see_a_GDPP\",\"see_a_GDP_In\",\"see_a_GDP_PArea\",\"see_a_GDP_PPop\",\"see_a_gdpHeadt\",\"see_a_gdpRateHeat\",\"se_a_globe\"],\r\n                title: \"地区生产总值\"\r\n            };\r\n        },\r\n        created: function () {\r\n\r\n        },\r\n        methods: {\r\n            toggleTheme: function (e) {\r\n                let target = e.target;\r\n                this.toggleTittle(target);\r\n                bus.$emit('theme.toggle',target.id);\r\n            },\r\n            toggleTittle: function (elem) {\r\n                switch (elem.id){\r\n                    case \"see_a_gdp\":\r\n                        this.title = \"地区生产总值\";\r\n                        break;\r\n                    case \"see_a_100\":\r\n                        this.title = \"地区增长总值平均增长率\";\r\n                        break;\r\n                    case \"see_a_GDPP\":\r\n                        this.title = \"各省GDP总值分布图\";\r\n                        break;\r\n                    case \"see_a_GDP_In\":\r\n                        this.title = \"各省GDP增长率\";\r\n                        break;\r\n                    case \"see_a_GDP_PArea\":\r\n                        this.title = \"各省平均面积GDP\";\r\n                        break;\r\n                    case \"see_a_GDP_PPop\":\r\n                        this.title = \"各省人均GDP\";\r\n                        break;\r\n                    case \"see_a_gdpHeadt\":\r\n                        this.title = \"人均GDP热力图\";\r\n                        break;\r\n                    case \"see_a_gdpRateHeat\":\r\n                        this.title = \"全国主要城市GDP增长率热力图\";\r\n                        break;\r\n                }\r\n            }\r\n        }\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n    #se_a_gdp {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/gdp.png\") center center no-repeat;\r\n        background-size: 60% auto;\r\n    }\r\n\r\n    #se_a_globe {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/globe.png\") center center no-repeat;\r\n        background-size: 60% auto;\r\n    }\r\n\r\n    #se_a_100 {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/100.png\") center center no-repeat;\r\n        background-size: 50% auto;\r\n    }\r\n\r\n    #se_a_GDP_PPop, #se_a_GDPP, #se_a_GDP_PArea, #se_a_GDP_In {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/area.png\") center center no-repeat;\r\n        background-size: 70% auto;\r\n    }\r\n\r\n    #se_a_gdpHeat {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/heat.png\") center center no-repeat;\r\n        background-size: 70% auto;\r\n    }\r\n\r\n    #se_a_gdpRateHeat {\r\n        background: rgba(0, 0, 0, .7) url(\"../img/heat.png\") center center no-repeat;\r\n        background-size: 70% auto;\r\n    }\r\n</style>"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*
@@ -29849,10 +30056,10 @@ function toComment(sourceMap) {
   return '/*# ' + data + ' */';
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34).Buffer))
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -29942,31 +30149,31 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICIzMGY2ZWJiOGU4NWQ4MWRjNzUzZTIxMTAyMjlkOTFiYS5wbmciOw=="
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICIzZWNmNmI2ODY4MjBkZjg0NDM2ZDdjY2U4YTE0ZTYyNC5wbmciOw=="
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICI0MmY3ODk5NGM0NzcyNDMxMjhkMjJjMzFhOWZlZTBmYy5wbmciOw=="
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICJkOTEzY2ZhY2M2OGM3YTNlZDM5MTE4NjlhOGQ0YzljNy5wbmciOw=="
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -29982,7 +30189,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "se_nav"
     }
-  }, [_vm._v("2020年省会城市生产总值")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("2020年地区生产总值")]), _vm._v(" "), _c('button', {
     attrs: {
       "id": "cityList",
       "type": "button",
@@ -30006,7 +30213,7 @@ if (false) {
 }
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -30016,7 +30223,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "se_title"
     }
-  }), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.title) + "\n    ")]), _vm._v(" "), _c('div', {
     attrs: {
       "id": "fun_button"
     }
@@ -30041,7 +30248,7 @@ if (false) {
 }
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -30071,17 +30278,17 @@ if (false) {
 }
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(63);
+var content = __webpack_require__(64);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(74)("0b7b8aaa", content, false);
+var update = __webpack_require__(75)("0b7b8aaa", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -30097,7 +30304,7 @@ if(false) {
 }
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -30116,7 +30323,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(75)
+var listToStyles = __webpack_require__(76)
 
 /*
 type StyleObject = {
@@ -30333,7 +30540,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 /**
@@ -30366,7 +30573,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -30394,13 +30601,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _lodash = __webpack_require__(10);
+var _lodash = __webpack_require__(5);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -30408,15 +30615,15 @@ var _vue = __webpack_require__(11);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _Header = __webpack_require__(21);
+var _Header = __webpack_require__(22);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _Sidebar = __webpack_require__(23);
+var _Sidebar = __webpack_require__(24);
 
 var _Sidebar2 = _interopRequireDefault(_Sidebar);
 
-var _Map = __webpack_require__(22);
+var _Map = __webpack_require__(23);
 
 var _Map2 = _interopRequireDefault(_Map);
 
@@ -30430,6 +30637,36 @@ var app = new _vue2.default({
         appMap: _Map2.default
     }
 });
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bus_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bus_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__bus_js__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data() {
+        return {};
+    }
+};
 
 /***/ })
 /******/ ]);
